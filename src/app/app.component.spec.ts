@@ -1,12 +1,23 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { AggridtestComponent } from './components/aggridtest/aggridtest.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { of } from 'rxjs';
+import { YoutubeSearchListService } from './services/youtube-searchlist.api.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        AggridtestComponent
       ],
+      imports: [
+        AgGridModule.withComponents([]),
+      ],
+      providers: [
+        {provide: YoutubeSearchListService, useValue: {get: () => of([])}},
+      ]
     }).compileComponents();
   }));
 
@@ -14,18 +25,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'AngularAgGridTest'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('AngularAgGridTest');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to AngularAgGridTest!');
   });
 });
